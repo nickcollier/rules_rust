@@ -144,30 +144,30 @@ def all_crate_deps(
         build = False,
         build_proc_macro = False,
         package_name = None):
-    """Finds the fully qualified label of all requested direct crate dependencies \
-    for the package where this macro is called.
-
-    If no parameters are set, all normal dependencies are returned. Setting any one flag will
-    otherwise impact the contents of the returned list.
-
-    Args:
-        normal (bool, optional): If True, normal dependencies are included in the
-            output list.
-        normal_dev (bool, optional): If True, normal dev dependencies will be
-            included in the output list..
-        proc_macro (bool, optional): If True, proc_macro dependencies are included
-            in the output list.
-        proc_macro_dev (bool, optional): If True, dev proc_macro dependencies are
-            included in the output list.
-        build (bool, optional): If True, build dependencies are included
-            in the output list.
-        build_proc_macro (bool, optional): If True, build proc_macro dependencies are
-            included in the output list.
-        package_name (str, optional): The package name of the set of dependencies to look up.
-            Defaults to `native.package_name()` when unset.
-
-    Returns:
-        list: A list of labels to generated rust targets (str)
+    """Finds the fully qualified label of all requested direct crate dependencies \\\r
+    for the package where this macro is called.\r
+\r
+    If no parameters are set, all normal dependencies are returned. Setting any one flag will\r
+    otherwise impact the contents of the returned list.\r
+\r
+    Args:\r
+        normal (bool, optional): If True, normal dependencies are included in the\r
+            output list.\r
+        normal_dev (bool, optional): If True, normal dev dependencies will be\r
+            included in the output list..\r
+        proc_macro (bool, optional): If True, proc_macro dependencies are included\r
+            in the output list.\r
+        proc_macro_dev (bool, optional): If True, dev proc_macro dependencies are\r
+            included in the output list.\r
+        build (bool, optional): If True, build dependencies are included\r
+            in the output list.\r
+        build_proc_macro (bool, optional): If True, build proc_macro dependencies are\r
+            included in the output list.\r
+        package_name (str, optional): The package name of the set of dependencies to look up.\r
+            Defaults to `native.package_name()` when unset.\r
+\r
+    Returns:\r
+        list: A list of labels to generated rust targets (str)\r
     """
 
     if package_name == None:
@@ -314,6 +314,7 @@ _NORMAL_DEPENDENCIES = {
             "serde_json": "@cui__serde_json-1.0.108//:serde_json",
             "serde_starlark": "@cui__serde_starlark-0.1.14//:serde_starlark",
             "sha2": "@cui__sha2-0.10.8//:sha2",
+            "spdx": "@cui__spdx-0.10.3//:spdx",
             "tempfile": "@cui__tempfile-3.8.1//:tempfile",
             "tera": "@cui__tera-1.19.1//:tera",
             "textwrap": "@cui__textwrap-0.16.0//:textwrap",
@@ -2702,6 +2703,16 @@ def crate_repositories():
 
     maybe(
         http_archive,
+        name = "cui__spdx-0.10.3",
+        sha256 = "62bde1398b09b9f93fc2fc9b9da86e362693e999d3a54a8ac47a99a5a73f638b",
+        type = "tar.gz",
+        urls = ["https://crates.io/api/v1/crates/spdx/0.10.3/download"],
+        strip_prefix = "spdx-0.10.3",
+        build_file = Label("@rules_rust//crate_universe/3rdparty/crates:BUILD.spdx-0.10.3.bazel"),
+    )
+
+    maybe(
+        http_archive,
         name = "cui__spectral-0.6.0",
         sha256 = "ae3c15181f4b14e52eeaac3efaeec4d2764716ce9c86da0c934c3e318649c5ba",
         type = "tar.gz",
@@ -3381,6 +3392,7 @@ def crate_repositories():
         struct(repo = "cui__serde_json-1.0.108", is_dev_dep = False),
         struct(repo = "cui__serde_starlark-0.1.14", is_dev_dep = False),
         struct(repo = "cui__sha2-0.10.8", is_dev_dep = False),
+        struct(repo = "cui__spdx-0.10.3", is_dev_dep = False),
         struct(repo = "cui__tempfile-3.8.1", is_dev_dep = False),
         struct(repo = "cui__tera-1.19.1", is_dev_dep = False),
         struct(repo = "cui__textwrap-0.16.0", is_dev_dep = False),

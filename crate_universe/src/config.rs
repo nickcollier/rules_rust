@@ -92,6 +92,10 @@ pub struct RenderConfig {
 
     /// An optional configuration for rendering content to be rendered into repositories.
     pub vendor_mode: Option<VendorMode>,
+
+    /// Whether to generate package metadata
+    #[serde(default = "default_generate_package_metadata")]
+    pub generate_package_metadata: bool,
 }
 
 // Default is manually implemented so that the default values match the default
@@ -111,6 +115,7 @@ impl Default for RenderConfig {
             platforms_template: default_platforms_template(),
             regen_command: String::default(),
             vendor_mode: Option::default(),
+            generate_package_metadata: default_generate_package_metadata(),
         }
     }
 }
@@ -137,6 +142,10 @@ fn default_platforms_template() -> String {
 
 fn default_generate_target_compatible_with() -> bool {
     true
+}
+
+fn default_generate_package_metadata() -> bool {
+    false
 }
 
 /// A representation of some Git identifier used to represent the "revision" or "pin" of a checkout.

@@ -90,7 +90,8 @@ def render_config(
         generate_target_compatible_with = True,
         platforms_template = "@rules_rust//rust/platform:{triple}",
         regen_command = None,
-        vendor_mode = None):
+        vendor_mode = None,
+        generate_package_metadata = False):
     """Various settings used to configure rendered outputs
 
     The template parameters each support a select number of format keys. A description of each key
@@ -128,6 +129,7 @@ def render_config(
             keys are [`{triple}`].
         regen_command (str, optional): An optional command to demonstrate how generated files should be regenerated.
         vendor_mode (str, optional): An optional configuration for rendirng content to be rendered into repositories.
+        generate_package_metadata (bool, optional): Whether to generate package metedata (requires @rules_license)
 
     Returns:
         string: A json encoded struct to match the Rust `config::RenderConfig` struct
@@ -143,6 +145,7 @@ def render_config(
         platforms_template = platforms_template,
         regen_command = regen_command,
         vendor_mode = vendor_mode,
+        generate_package_metadata = generate_package_metadata,
     ))
 
 def _crate_id(name, version):
