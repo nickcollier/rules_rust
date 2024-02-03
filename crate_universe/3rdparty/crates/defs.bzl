@@ -144,30 +144,30 @@ def all_crate_deps(
         build = False,
         build_proc_macro = False,
         package_name = None):
-    """Finds the fully qualified label of all requested direct crate dependencies \\\r
-    for the package where this macro is called.\r
-\r
-    If no parameters are set, all normal dependencies are returned. Setting any one flag will\r
-    otherwise impact the contents of the returned list.\r
-\r
-    Args:\r
-        normal (bool, optional): If True, normal dependencies are included in the\r
-            output list.\r
-        normal_dev (bool, optional): If True, normal dev dependencies will be\r
-            included in the output list..\r
-        proc_macro (bool, optional): If True, proc_macro dependencies are included\r
-            in the output list.\r
-        proc_macro_dev (bool, optional): If True, dev proc_macro dependencies are\r
-            included in the output list.\r
-        build (bool, optional): If True, build dependencies are included\r
-            in the output list.\r
-        build_proc_macro (bool, optional): If True, build proc_macro dependencies are\r
-            included in the output list.\r
-        package_name (str, optional): The package name of the set of dependencies to look up.\r
-            Defaults to `native.package_name()` when unset.\r
-\r
-    Returns:\r
-        list: A list of labels to generated rust targets (str)\r
+    """Finds the fully qualified label of all requested direct crate dependencies \
+    for the package where this macro is called.
+
+    If no parameters are set, all normal dependencies are returned. Setting any one flag will
+    otherwise impact the contents of the returned list.
+
+    Args:
+        normal (bool, optional): If True, normal dependencies are included in the
+            output list.
+        normal_dev (bool, optional): If True, normal dev dependencies will be
+            included in the output list..
+        proc_macro (bool, optional): If True, proc_macro dependencies are included
+            in the output list.
+        proc_macro_dev (bool, optional): If True, dev proc_macro dependencies are
+            included in the output list.
+        build (bool, optional): If True, build dependencies are included
+            in the output list.
+        build_proc_macro (bool, optional): If True, build proc_macro dependencies are
+            included in the output list.
+        package_name (str, optional): The package name of the set of dependencies to look up.
+            Defaults to `native.package_name()` when unset.
+
+    Returns:
+        list: A list of labels to generated rust targets (str)
     """
 
     if package_name == None:
