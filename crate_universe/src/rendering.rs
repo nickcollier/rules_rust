@@ -347,16 +347,13 @@ impl Renderer {
             if has_license_ids {
                 let mut license_kinds = BTreeSet::new();
 
-                krate.license_ids
-                    .clone()
-                    .into_iter()
-                    .for_each(|lic| {
-                        license_kinds.insert("@rules_license//licenses/spdx:".to_owned() + &lic);
-                    });
+                krate.license_ids.clone().into_iter().for_each(|lic| {
+                    license_kinds.insert("@rules_license//licenses/spdx:".to_owned() + &lic);
+                });
 
                 starlark.push(Starlark::License(starlark::License {
                     name: "license".to_owned(),
-                    license_kinds: license_kinds,
+                    license_kinds,
                     license_text: krate.license_file.clone().unwrap_or_default(),
                 }));
             }

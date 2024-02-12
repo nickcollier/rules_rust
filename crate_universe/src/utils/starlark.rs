@@ -212,7 +212,10 @@ impl Package {
     pub fn default_visibility_public(default_package_metadata: Set<Label>) -> Self {
         let mut default_visibility = Set::new();
         default_visibility.insert("//visibility:public".to_owned());
-        Package { default_package_metadata, default_visibility }
+        Package {
+            default_package_metadata,
+            default_visibility,
+        }
     }
 }
 

@@ -3,7 +3,7 @@ use serde::Serialize;
 use serde_starlark::{FunctionCall, MULTILINE, ONELINE};
 
 use super::{
-    Data, ExportsFiles, Load, Package, PackageInfo, License, RustBinary, RustLibrary, RustProcMacro,
+    Data, ExportsFiles, License, Load, Package, PackageInfo, RustBinary, RustLibrary, RustProcMacro,
 };
 
 // For structs that contain #[serde(flatten)], a quirk of how Serde processes
@@ -77,7 +77,7 @@ impl Serialize for Package {
     where
         S: Serializer,
     {
-        let has_metadata = ! self.default_package_metadata.is_empty();
+        let has_metadata = !self.default_package_metadata.is_empty();
         let mut call = serializer
             .serialize_struct("package", if has_metadata { MULTILINE } else { ONELINE })?;
         if has_metadata {
@@ -110,7 +110,7 @@ impl Serialize for License {
         let mut call = serializer.serialize_struct("license", MULTILINE)?;
         call.serialize_field("name", &self.name)?;
         call.serialize_field("license_kinds", &self.license_kinds)?;
-        if ! self.license_text.is_empty() {
+        if !self.license_text.is_empty() {
             call.serialize_field("license_text", &self.license_text)?;
         }
         call.end()

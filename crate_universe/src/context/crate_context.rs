@@ -441,23 +441,16 @@ impl CrateContext {
         // Identify the license type
         let mut license_ids: BTreeSet<String> = BTreeSet::new();
         if let Some(license) = &package.license {
-            let parse_result = spdx::Expression::parse_mode(&license, spdx::ParseMode::LAX);
-            if parse_result.is_ok() {
-                parse_result
-                    .unwrap()
-                    .requirements()
-                    .for_each(|er| {
-                        if let Some(license_id) = er.req.license.id() {
-                            license_ids.insert(license_id.name.to_string());
-                        }
-                    });
+            if let Ok(parse_result) = spdx::Expression::parse_mode(license, spdx::ParseMode::LAX) {
+                parse_result.requirements().for_each(|er| {
+                    if let Some(license_id) = er.req.license.id() {
+                        license_ids.insert(license_id.name.to_string());
+                    }
+                });
             }
         }
 
-        let license_file = match &package.license_file {
-            Some(path) => Some(path.to_string()),
-            None => None,
-        };
+        let license_file = package.license_file.as_ref().map(|path| path.to_string());
 
         let package_url: Option<String> = match package.repository {
             Some(..) => package.repository.clone(),
@@ -468,10 +461,10 @@ impl CrateContext {
         CrateContext {
             name: package.name.clone(),
             version: package.version.to_string(),
-            package_url: package_url,
             license: package.license.clone(),
             license_ids,
             license_file,
+            package_url,
             repository,
             targets,
             library_target_name,
@@ -1040,10 +1033,7 @@ mod test {
                 package.license = Some("NonSPDXLicenseID".to_owned());
             },
             |context| {
-                assert_eq!(
-                    context.license_ids,
-                    BTreeSet::default(),
-                );
+                assert_eq!(context.license_ids, BTreeSet::default(),);
             },
         );
     }
