@@ -94,8 +94,8 @@ pub struct RenderConfig {
     pub vendor_mode: Option<VendorMode>,
 
     /// Whether to generate package metadata
-    #[serde(default = "default_generate_package_metadata")]
-    pub generate_package_metadata: bool,
+    #[serde(default = "default_generate_rules_license_metadata")]
+    pub generate_rules_license_metadata: bool,
 }
 
 // Default is manually implemented so that the default values match the default
@@ -115,7 +115,7 @@ impl Default for RenderConfig {
             platforms_template: default_platforms_template(),
             regen_command: String::default(),
             vendor_mode: Option::default(),
-            generate_package_metadata: default_generate_package_metadata(),
+            generate_rules_license_metadata: default_generate_rules_license_metadata(),
         }
     }
 }
@@ -144,7 +144,7 @@ fn default_generate_target_compatible_with() -> bool {
     true
 }
 
-fn default_generate_package_metadata() -> bool {
+fn default_generate_rules_license_metadata() -> bool {
     false
 }
 

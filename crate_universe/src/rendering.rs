@@ -312,7 +312,7 @@ impl Renderer {
             items: BTreeSet::from(["selects".to_owned()]),
         }));
 
-        if self.config.generate_package_metadata {
+        if self.config.generate_rules_license_metadata {
             let has_license_ids = !krate.license_ids.is_empty();
             let mut package_metadata = BTreeSet::from([Label::Relative {
                 target: "package_info".to_owned(),
@@ -1366,7 +1366,7 @@ mod test {
         );
 
         let mut render_config = mock_render_config(None);
-        render_config.generate_package_metadata = true;
+        render_config.generate_rules_license_metadata = true;
         let renderer = Renderer::new(render_config, mock_supported_platform_triples());
         let output = renderer.render(&context).unwrap();
 
@@ -1409,7 +1409,7 @@ mod test {
         );
 
         let mut render_config = mock_render_config(None);
-        render_config.generate_package_metadata = true;
+        render_config.generate_rules_license_metadata = true;
         let renderer = Renderer::new(render_config, mock_supported_platform_triples());
         let output = renderer.render(&context).unwrap();
 
@@ -1464,7 +1464,7 @@ mod test {
         );
 
         let mut render_config = mock_render_config(None);
-        render_config.generate_package_metadata = true;
+        render_config.generate_rules_license_metadata = true;
         let renderer = Renderer::new(render_config, mock_supported_platform_triples());
         let output = renderer.render(&context).unwrap();
 
