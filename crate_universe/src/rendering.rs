@@ -9,7 +9,6 @@ use std::path::{Path, PathBuf};
 use std::str::FromStr;
 
 use anyhow::{bail, Context as AnyhowContext, Result};
-use indoc::formatdoc;
 use itertools::Itertools;
 
 use crate::config::{AliasRule, RenderConfig, VendorMode};
@@ -361,14 +360,6 @@ impl Renderer {
             // Package visibility.
             let package = Package::default_visibility_public(BTreeSet::new());
             starlark.push(Starlark::Package(package));
-        }
-
-        if let Some(license) = &krate.license {
-            starlark.push(Starlark::Verbatim(formatdoc! {r#"
-                # licenses([
-                #     "TODO",  # {license}
-                # ])
-            "#}));
         }
 
         for rule in &krate.targets {
