@@ -24,6 +24,10 @@ UNSUPPORTED_FEATURES = [
     "use_header_modules",
     "fdo_instrument",
     "fdo_optimize",
+    # This feature is unsupported by definition. The authors of C++ toolchain
+    # configuration can place any linker flags that should not be applied when
+    # linking Rust targets in a feature with this name.
+    "rules_rust_unsupported_feature",
 ]
 
 def find_toolchain(ctx):
@@ -874,4 +878,16 @@ def generate_output_diagnostics(ctx, sibling, require_process_wrapper = True):
     return ctx.actions.declare_file(
         sibling.basename + ".rustc-output",
         sibling = sibling,
+    )
+
+def is_std_dylib(file):
+    """Whether the file is a dylib crate for std
+
+    """
+    basename = file.basename
+    return (
+        # for linux and darwin
+        basename.startswith("libstd-") and (basename.endswith(".so") or basename.endswith(".dylib")) or
+        # for windows
+        basename.startswith("std-") and basename.endswith(".dll")
     )
