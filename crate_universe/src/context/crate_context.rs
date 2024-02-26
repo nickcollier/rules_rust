@@ -650,8 +650,7 @@ impl CrateContext {
         self
     }
 
-    fn locate_license_file(package: &Package) -> Option<String>
-    {
+    fn locate_license_file(package: &Package) -> Option<String> {
         if let Some(license_file_path) = &package.license_file {
             return Some(license_file_path.to_string());
         }
@@ -661,7 +660,9 @@ impl CrateContext {
             .parent()
             .expect("Every manifest should have a parent directory");
         if package_root.exists() {
-            let mut paths: Vec<_> = package_root.read_dir().unwrap()
+            let mut paths: Vec<_> = package_root
+                .read_dir()
+                .unwrap()
                 .map(|r| r.unwrap())
                 .collect();
             paths.sort_by_key(|dir| dir.path());
